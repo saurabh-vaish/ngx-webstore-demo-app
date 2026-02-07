@@ -1,0 +1,215 @@
+<div class="demo-container fade-in">
+  <!-- Header -->
+  <div class="demo-header">
+    <div>
+      <h1>💾 LocalStorage Demo</h1>
+      <p class="text-muted">Persistent browser storage with cross-tab synchronization</p>
+    </div>
+    <div class="status-badges">
+      <span class="badge" [class.badge-success]="isAvailable" [class.badge-error]="!isAvailable">
+        {{ isAvailable ? '✓ Available' : '✗ Not Available' }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Error Display -->
+  <div *ngIf="lastError" class="error-alert">
+    <strong>Error:</strong> {{ lastError }}
+  </div>
+
+  <!-- Quick Examples -->
+  <section class="section">
+    <div class="card">
+      <div class="card-header">
+        <h3>🚀 Quick Start</h3>
+      </div>
+      <div class="card-body">
+        <p>Click below to populate localStorage with sample data:</p>
+        <button class="btn btn-primary" (click)="quickSetExamples()">
+          Add Sample Data
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Add New Item -->
+  <section class="section">
+    <div class="card">
+      <div class="card-header">
+        <h3>➕ Add New Item</h3>
+      </div>
+      <div class="card-body">
+        <div class="grid grid-2">
+          <div class="form-group">
+            <label>Key</label>
+            <input 
+              type="text" 
+              [(ngModel)]="newKey" 
+              placeholder="e.g., userName"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Value (JSON or string)</label>
+            <input 
+              type="text" 
+              [(ngModel)]="newValue" 
+              placeholder='e.g., "John" or {"name": "John"}'
+            />
+          </div>
+
+          <div class="form-group">
+            <label>TTL (seconds, optional)</label>
+            <input 
+              type="number" 
+              [(ngModel)]="newTTL" 
+              placeholder="e.g., 60"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input 
+                type="checkbox" 
+                [(ngModel)]="encryptData"
+              />
+              <span>Encrypt Data</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button class="btn btn-primary" (click)="setItem()" [disabled]="!newKey || !newValue">
+            Save Item
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Watch for Changes -->
+  <section class="section">
+    <div class="card">
+      <div class="card-header">
+        <h3>👁️ Watch for Changes</h3>
+      </div>
+      <div class="card-body">
+        <p class="text-muted mb-2">
+          Enter a key to watch for changes in real-time (reactive updates):
+        </p>
+        
+        <div class="watch-controls">
+          <input 
+            type="text" 
+            [(ngModel)]="watchKey" 
+            placeholder="Key to watch"
+            class="watch-input"
+          />
+          <button class="btn btn-secondary" (click)="watchForChanges()" [disabled]="!watchKey">
+            Start Watching
+          </button>
+          <button class="btn btn-warning" (click)="stopWatching()" *ngIf="watchedValue !== null">
+            Stop Watching
+          </button>
+        </div>
+
+        <div *ngIf="watchedValue !== null" class="watch-result">
+          <h4>Watched Value:</h4>
+          <div class="code-block">
+            <pre>{{ formatValue(watchedValue) }}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stored Items -->
+  <section class="section">
+    <div class="card">
+      <div class="card-header flex justify-between items-center">
+        <h3>📦 Stored Items ({{ storageItems.length }})</h3>
+        <div class="button-group">
+          <button class="btn btn-secondary btn-sm" (click)="refreshStorageItems()">
+            🔄 Refresh
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="clearAll()" *ngIf="storageItems.length > 0">
+            🗑️ Clear All
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div *ngIf="storageItems.length === 0" class="empty-state">
+          <p>No items in storage. Add some data to get started!</p>
+        </div>
+
+        <div *ngIf="storageItems.length > 0" class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th>Value</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of storageItems">
+                <td>
+                  <code>{{ item.key }}</code>
+                </td>
+                <td>
+                  <div class="value-cell">
+                    <pre>{{ formatValue(item.value) }}</pre>
+                  </div>
+                </td>
+                <td>
+                  <button class="btn btn-danger btn-sm" (click)="removeItem(item.key)">
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Example -->
+  <section class="section">
+    <div class="card">
+      <div class="card-header">
+        <h3>💻 Code Example</h3>
+      </div>
+      <div class="card-body">
+        <div class="code-block">
+          <pre>import {{ '{' }} LocalStorageService {{ '}' }} from 'ngx-webstore';
+
+constructor(private localStorage: LocalStorageService) {{ '{' }}{{ '}' }}
+
+// Set value
+await this.localStorage.set('user', {{ '{' }} name: 'John' {{ '}' }});
+
+// Set with TTL (expires in 1 hour)
+await this.localStorage.set('token', 'abc123', {{ '{' }} ttl: 3600000 {{ '}' }});
+
+// Set with encryption
+await this.localStorage.set('sensitive', data, {{ '{' }} encrypt: true {{ '}' }});
+
+// Get value
+const user = await this.localStorage.get&lt;User&gt;('user');
+
+// Watch for changes (reactive)
+this.localStorage.watch&lt;User&gt;('user').subscribe(user => {{ '{' }}
+  console.log('User changed:', user);
+{{ '}' }});
+
+// Remove item
+await this.localStorage.remove('user');
+
+// Clear all
+await this.localStorage.clear();</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

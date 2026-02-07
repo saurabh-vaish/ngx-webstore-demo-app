@@ -1,0 +1,50 @@
+<div class="app-container" [class.sidebar-closed]="!sidebarOpen">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2 class="sidebar-title">
+        <span class="logo-icon">📦</span>
+        <span>ngx-webstore</span>
+      </h2>
+      <p class="sidebar-subtitle">Comprehensive Demo</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a
+        *ngFor="let item of navItems"
+        [routerLink]="item.path"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+        class="nav-item"
+      >
+        <span class="nav-icon">{{ item.icon }}</span>
+        <div class="nav-content">
+          <span class="nav-label">{{ item.label }}</span>
+          <span class="nav-description">{{ item.description }}</span>
+        </div>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <p class="text-muted" style="font-size: 0.85rem;">
+        Built with ❤️ using Angular 18
+      </p>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <header class="app-header">
+      <button class="menu-toggle" (click)="toggleSidebar()">
+        <span>{{ sidebarOpen ? '☰' : '→' }}</span>
+      </button>
+      <div class="header-title">
+        <h1>{{ title }}</h1>
+      </div>
+    </header>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

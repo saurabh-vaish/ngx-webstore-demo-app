@@ -1,0 +1,94 @@
+<div class="dashboard fade-in">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">ngx-webstore</h1>
+      <p class="hero-subtitle">
+        A comprehensive Angular library for browser storage management with TypeScript support, reactive APIs, encryption, TTL, and more.
+      </p>
+      <div class="hero-badges">
+        <span class="badge badge-success">✓ Type-Safe</span>
+        <span class="badge badge-info">✓ Reactive</span>
+        <span class="badge badge-warning">✓ Encrypted</span>
+        <span class="badge badge-success">✓ TTL Support</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="features-section">
+    <h2 class="section-title">Explore Features</h2>
+    <p class="section-subtitle">Click on any feature to see a live demonstration</p>
+
+    <div class="features-grid">
+      <a
+        *ngFor="let feature of features"
+        [routerLink]="feature.link"
+        class="feature-card"
+        [style.--feature-color]="feature.color"
+      >
+        <div class="feature-icon">{{ feature.icon }}</div>
+        <h3 class="feature-title">{{ feature.title }}</h3>
+        <p class="feature-description">{{ feature.description }}</p>
+        <span class="feature-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Getting Started -->
+  <section class="getting-started-section">
+    <div class="card">
+      <div class="card-header">
+        <h2>🚀 Getting Started</h2>
+      </div>
+      <div class="card-body">
+        <p>Quick example to get you started with ngx-webstore:</p>
+        <div class="code-block">
+          <pre>{{ codeExample }}</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Features -->
+  <section class="key-features-section">
+    <h2 class="section-title">Why ngx-webstore?</h2>
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-header">
+          <h3>🔐 Security First</h3>
+        </div>
+        <div class="card-body">
+          <p>Built-in AES-GCM encryption with Web Crypto API. Keep sensitive data safe with industry-standard encryption.</p>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h3>⚡ Reactive by Design</h3>
+        </div>
+        <div class="card-body">
+          <p>Observable and Signal-based APIs for reactive updates. Watch for changes and keep your UI in sync automatically.</p>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h3>🎯 Type-Safe</h3>
+        </div>
+        <div class="card-body">
+          <p>Full TypeScript support with generics. Get compile-time type checking for all storage operations.</p>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h3>🔄 Cross-Tab Sync</h3>
+        </div>
+        <div class="card-body">
+          <p>Automatic synchronization across browser tabs. Changes in one tab are instantly reflected in all others.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

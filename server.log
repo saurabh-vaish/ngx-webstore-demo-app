@@ -1,0 +1,41 @@
+
+> ngx-webstore-demo-app@0.0.0 start
+> ng serve
+
+[1m[33mComponent HMR has been enabled, see https://angular.dev/hmr for more info.[39m[22m
+[1m[31mAn unhandled exception occurred: Cannot find module @rollup/rollup-win32-x64-msvc. npm has a bug related to optional dependencies (https://github.com/npm/cli/issues/4828). Please try `npm i` again after removing both package-lock.json and node_modules directory.
+See "C:\Users\saura\AppData\Local\Temp\ng-cRVSYh\angular-errors.log" for further details.[39m[22m
+node:internal/process/promises:289
+            triggerUncaughtException(err, true /* fromPromise */);
+            ^
+
+Error: Cannot find module @rollup/rollup-win32-x64-msvc. npm has a bug related to optional dependencies (https://github.com/npm/cli/issues/4828). Please try `npm i` again after removing both package-lock.json and node_modules directory.
+    at requireWithFriendlyError (E:\work\ngx-webstore-demo-app\node_modules\vite\node_modules\rollup\dist\native.js:115:9)
+    at Object.<anonymous> (E:\work\ngx-webstore-demo-app\node_modules\vite\node_modules\rollup\dist\native.js:124:76)
+    ... 3 lines matching cause stack trace ...
+    at Module._load (node:internal/modules/cjs/loader:1022:12)
+    at cjsLoader (node:internal/modules/esm/translators:366:17)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:315:7)
+    at ModuleJob.run (node:internal/modules/esm/module_job:222:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:323:24) {
+  [cause]: Error: Cannot find module '@rollup/rollup-win32-x64-msvc'
+  Require stack:
+  - E:\work\ngx-webstore-demo-app\node_modules\vite\node_modules\rollup\dist\native.js
+      at Module._resolveFilename (node:internal/modules/cjs/loader:1143:15)
+      at Module._load (node:internal/modules/cjs/loader:984:27)
+      at Module.require (node:internal/modules/cjs/loader:1231:19)
+      at require (node:internal/modules/helpers:179:18)
+      at requireWithFriendlyError (E:\work\ngx-webstore-demo-app\node_modules\vite\node_modules\rollup\dist\native.js:97:10)
+      at Object.<anonymous> (E:\work\ngx-webstore-demo-app\node_modules\vite\node_modules\rollup\dist\native.js:124:76)
+      at Module._compile (node:internal/modules/cjs/loader:1369:14)
+      at Module._extensions..js (node:internal/modules/cjs/loader:1427:10)
+      at Module.load (node:internal/modules/cjs/loader:1206:32)
+      at Module._load (node:internal/modules/cjs/loader:1022:12) {
+    code: 'MODULE_NOT_FOUND',
+    requireStack: [
+      'E:\\work\\ngx-webstore-demo-app\\node_modules\\vite\\node_modules\\rollup\\dist\\native.js'
+    ]
+  }
+}
+
+Node.js v20.12.2
